@@ -507,6 +507,12 @@ class driver
 		// Make sure we have UTF-8 and handle HTML
 		$description = $rss_item['description'];
 		$title = $this->clean_title($rss_item['title']);
+		// protect against empty title: take first 40 characters of the text and add ...
+		if(empty($title))
+		{
+			$title = $this->character_limiter($description, 40);
+			$title .= "...";
+		}
 		if (!empty($source['prefix']))
 		{
 			$title = trim($source['prefix']) . ' ' . $title;
