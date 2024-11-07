@@ -507,11 +507,11 @@ class driver
 		// Make sure we have UTF-8 and handle HTML
 		$description = $rss_item['description'];
 		$title = $this->clean_title($rss_item['title']);
-		// protect against empty title: take first 40 characters of the text and add ...
+		// protect against empty title: take first 40 characters of the text
+		// for some reason there's a <p>at the start of the description so we want to strip any html tags I think
 		if(empty($title))
 		{
-			$title = $this->character_limiter($description, 40);
-			$title .= "...";
+			$title = strip_tags($this->character_limiter($description, 40));
 		}
 		if (!empty($source['prefix']))
 		{
